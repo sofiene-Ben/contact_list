@@ -8,6 +8,7 @@ def get_contacts():
     json_contacts = list(map(lambda x: x.to_json(), contacts))
     return jsonify({"contacts": json_contacts})
 
+
 @app.route("/create_contact", methods=["POST"])
 def create_contact():
     first_name = request.json.get("firstName")
@@ -44,6 +45,20 @@ def update_contact(user_id):
     db.session.commit()
 
     return jsonify({"message": "User updated"}), 200
+
+
+@app.route("/delete_contact/<int:user_id>", methods=["DELETE"])
+def delete_contact(user_id):
+    contact = Contact.query.get(user_id)
+
+    if not contact:
+        return jsonify({"message": "user not found"}), 404
+    
+    db.session.delete(contact)
+    db.session.commit()
+
+    return jsonify({"message": "User deleted!"}), 200
+    
 
 if __name__ == "__main__":
     with app.app_context():
