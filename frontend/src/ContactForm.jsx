@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 const ContactForm = ({ existingContact = {}, updateCallback }) => {
-    const [firstName, setFristName] = useState(existingContact.firstName || "");
+    const [firstName, setFirstName] = useState(existingContact.firstName || "");
     const [lastName, setLastName] = useState(existingContact.lastName || "");
     const [email, setEmail] = useState(existingContact.email || "");
 
